@@ -9,7 +9,41 @@
 	<script src="react-0.14.7/build/react.js"></script>
 	<script src="react-0.14.7/build/react-dom.js"></script>
 	<script src="react-0.14.7/browser.js"></script>
+	<script type="text/babel">
+		var FormApp = React.createClass({
+			getInitialState : function(){
+				return {
+					uname : '',
+					sex : '',
+					school : ''
+				};
+			},
+			submitHandler : function(e){
+				console.log({
+					name : this.state.uname,
+					sex : this.state.sex,
+					school : this.state.school
+				});
 
+				e.preventDefault();
+			},
+			unameHandler : function(e){
+				this.setState({
+					uname : e.target.value
+				});
+			},
+			sexHanlder : function(e){
+				this.setState({
+					sex : e.target.value
+				});
+			},
+			schoolHanlder : function(e){
+				this.setState({
+					school : e.target.value
+				});
+			},
+			
+	</script>
 </body>
 </html>
 
