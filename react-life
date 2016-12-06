@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script src="react-0.14.7/build/react.js"></script>
+	<script src="react-0.14.7/build/react-dom.js"></script>
+	<script src="react-0.14.7/browser.js"></script>
+
+	<script type="text/babel">
+		var MessageBox = React.createClass({
+			getDefaultProps : function(){
+				console.log('getDefaultProps');
+				return {};
+			},
+			getInitialState : function(){
+				console.log('getInitialState');
+				return {
+					count : 0
+				};
+			},
+			componentWillMount : function(){
+				console.log('componentWillMount');	
+			},
+			componentDidMount : function(){
+				console.log('componentDidMount');
+				this.timer = setInterval(function(){
+					this.setState({
+						count : this.state.count + 1
+					});
+				}.bind(this), 500);
+			},
+			handleClick : function(){
+				
+				ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+			},
+			shouldComponentUpdate : function(){
+				// if(this.state.count > 5){
+				// 	return false;
+				// }
+				return true;
+			},
+			componentWillUpdate : function(){
+				console.log('componentWillUpdate');
+			},
+			componentDidUpdate : function(){
+				console.log('componentDidUpdate');
+			},
+			componentWillUnmount : function(){
+				clearInterval(this.timer);
+				console.log('componentWillUnMount');
+			},
+			render : function(){
+				console.log('render');
+				return (
+					<div>
+						<button onClick={this.handleClick}>点我</button>
+						<div>{this.state.count}</div>
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<MessageBox/>,
+			document.getElementById('app')
+		);
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
