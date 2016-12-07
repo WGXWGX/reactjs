@@ -1,0 +1,76 @@
+(function() {
+    for(var i=0; i<imgDatas.length; i++){
+        imgDatas[i].imgUrl = 'imgs/' + imgDatas[i].fileName ;
+    }
+    /*
+        获取区间内的随机值
+    */
+    function getRangeRandom(low, high){
+        return Math.floor(Math.random() * (high - low) + low);
+    }
+
+    /*
+        获取0-30°之间的一个任意正负值
+    */
+    function get30DegRandom(){
+        return (Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30);
+    }
+
+    /*
+        创建图片组件
+    */
+    var ImgFigure = React.createClass({
+        handleClick : function(e){
+            if(this.props.arrange.isCenter){
+                this.props.inverse();
+            }else{
+                this.props.center();
+            }
+            e.stopPropagation();
+            e.preventDefault();
+        },
+
+        render : function(){
+            var styleObj = {};
+            //如果props属性中制定了这张图片的位置，则使用
+            if(this.props.arrange.pos){
+                styleObj = this.props.arrange.pos;
+            }
+ 
+            //如果图片的旋转角度有值并且不为0， 添加旋转角度
+            if(this.props.arrange.rotate){
+                (['MozTransform', 'MsTransform', 'WebkitTransform', 'transform']).forEach(function (value) {
+                    styleObj[value] = 'rotate(' + this.props.arrange.rotate + 'deg)';
+                  }.bind(this));
+            }
+
+            var imgFigureClassName = 'img-figure';
+            imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
+
+            if(this.props.arrange.isCenter){
+                styleObj.zIndex = 11;
+            }
+
+            return (
+                <figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick}>
+                    <img src={this.props.data.imgUrl} alt={this.props.data.title}/>
+                    <figcaption >
+                        <h2 className="img-title">{this.props.data.title}</h2>
+                        <div className="img-back" onClick={this.handleClick}>
+                            <p>
+                                {this.props.data.desc}
+                            </p>
+                        </div>
+                     </figcaption>
+                </figure>
+            );
+        }
+    });
+
+ 
+    ReactDOM.render(
+        <Photowall />,
+        document.getElementById('container')
+    );
+
+})();
