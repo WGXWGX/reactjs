@@ -66,6 +66,58 @@
             );
         }
     });
+       /*
+        创建控制组件
+    */
+    var ControllerUnit = React.createClass({
+        handleClick : function(e){
+            //如果点击是当前选中的按钮，则翻转图片，否则将对应的图片居中
+            if(this.props.arrange.isCenter){
+                this.props.inverse();
+            }else{
+                this.props.center();
+            }
+
+            e.stopPropagation();
+            e.preventDefault();
+        },
+        render : function(){
+            var controllerUnitClassName = 'controller-unit';
+
+            if(this.props.arrange.isCenter){
+                controllerUnitClassName += ' is-center';
+                if(this.props.arrange.isInverse){
+                    controllerUnitClassName += ' is-inverse';
+                }
+            }
+            return (
+                <span className={controllerUnitClassName} onClick={this.handleClick} />
+
+            );
+        }
+    });
+
+    /*
+        创建舞台组件
+    */
+    var Photowall = React.createClass({
+        Constant : {//存储图片初始位置
+            centerPos : {
+                left : 0,
+                right : 0
+            },
+            hPosRange : {//水平方向的取值范围
+                leftSecX : [0, 0],
+                rightSecX : [0, 0],
+                y : [0, 0]
+            },
+            vPosRange : {//垂直方向的取值范围
+                x : [0, 0],
+                topY : [0, 0]
+            }
+        },
+
+     
 
  
     ReactDOM.render(
