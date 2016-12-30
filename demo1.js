@@ -20,7 +20,7 @@
 				React.createElement('div', {}, 'divdiv')
 				),
 			document.getElementById('app')
-		);
+	);
 	</script>
 </body>
 </html>
